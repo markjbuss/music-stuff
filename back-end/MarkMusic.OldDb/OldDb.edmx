@@ -1,0 +1,703 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OldDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Album">
+          <Key>
+            <PropertyRef Name="AlbumID" />
+          </Key>
+          <Property Name="AlbumID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ArtistID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="NumberOfTracks" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Artist">
+          <Key>
+            <PropertyRef Name="ArtistID" />
+          </Key>
+          <Property Name="ArtistID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Artist" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Mp3s">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Path" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="200" />
+          <Property Name="Artist" Type="nvarchar" MaxLength="100" />
+          <Property Name="Album" Type="nvarchar" MaxLength="100" />
+          <Property Name="TrackNumber" Type="int" />
+          <Property Name="AlbumTracks" Type="int" />
+        </EntityType>
+        <EntityType Name="Playlists">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="TagCombiner" Type="nvarchar" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PlaylistTags">
+          <Key>
+            <PropertyRef Name="PlaylistID" />
+            <PropertyRef Name="TagID" />
+          </Key>
+          <Property Name="PlaylistID" Type="int" Nullable="false" />
+          <Property Name="TagID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PossibleDuplicate">
+          <Key>
+            <PropertyRef Name="TrackID" />
+          </Key>
+          <Property Name="TrackID" Type="int" Nullable="false" />
+          <Property Name="Ignore" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RCDC">
+          <Key>
+            <PropertyRef Name="Number" />
+          </Key>
+          <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="Artist" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Album" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Listened" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StaticPlaylists">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StaticPlaylistTracks">
+          <Key>
+            <PropertyRef Name="PlaylistId" />
+            <PropertyRef Name="RelativePath" />
+            <PropertyRef Name="TrackNumber" />
+          </Key>
+          <Property Name="PlaylistId" Type="int" Nullable="false" />
+          <Property Name="RelativePath" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="TrackNumber" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TagCategory">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Display" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tags">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TrackTags">
+          <Key>
+            <PropertyRef Name="TagID" />
+            <PropertyRef Name="TrackID" />
+          </Key>
+          <Property Name="TagID" Type="int" Nullable="false" />
+          <Property Name="TrackID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UnratedTracks">
+          <Key>
+            <PropertyRef Name="TrackId" />
+            <PropertyRef Name="RaterId" />
+          </Key>
+          <Property Name="TrackId" Type="int" Nullable="false" />
+          <Property Name="RaterId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Album_Artist">
+          <End Role="Artist" Type="Self.Artist" Multiplicity="1" />
+          <End Role="Album" Type="Self.Album" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artist">
+              <PropertyRef Name="ArtistID" />
+            </Principal>
+            <Dependent Role="Album">
+              <PropertyRef Name="ArtistID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlaylistTags_Playlists">
+          <End Role="Playlists" Type="Self.Playlists" Multiplicity="1" />
+          <End Role="PlaylistTags" Type="Self.PlaylistTags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Playlists">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PlaylistTags">
+              <PropertyRef Name="PlaylistID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlaylistTags_Tags">
+          <End Role="Tags" Type="Self.Tags" Multiplicity="1" />
+          <End Role="PlaylistTags" Type="Self.PlaylistTags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PlaylistTags">
+              <PropertyRef Name="TagID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PossibleDuplicate_Mp3s">
+          <End Role="Mp3s" Type="Self.Mp3s" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PossibleDuplicate" Type="Self.PossibleDuplicate" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Mp3s">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PossibleDuplicate">
+              <PropertyRef Name="TrackID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StaticPlaylistTracks_StaticPlaylists">
+          <End Role="StaticPlaylists" Type="Self.StaticPlaylists" Multiplicity="1" />
+          <End Role="StaticPlaylistTracks" Type="Self.StaticPlaylistTracks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StaticPlaylists">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StaticPlaylistTracks">
+              <PropertyRef Name="PlaylistId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tags_TagCategory">
+          <End Role="TagCategory" Type="Self.TagCategory" Multiplicity="1" />
+          <End Role="Tags" Type="Self.Tags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TagCategory">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Tags">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrackTags_Mp3s">
+          <End Role="Mp3s" Type="Self.Mp3s" Multiplicity="1" />
+          <End Role="TrackTags" Type="Self.TrackTags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mp3s">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrackTags">
+              <PropertyRef Name="TrackID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrackTags_Tags">
+          <End Role="Tags" Type="Self.Tags" Multiplicity="1" />
+          <End Role="TrackTags" Type="Self.TrackTags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TrackTags">
+              <PropertyRef Name="TagID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UnratedTracks_Mp3s">
+          <End Role="Mp3s" Type="Self.Mp3s" Multiplicity="1" />
+          <End Role="UnratedTracks" Type="Self.UnratedTracks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mp3s">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UnratedTracks">
+              <PropertyRef Name="TrackId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UnratedTracks_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UnratedTracks" Type="Self.UnratedTracks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UnratedTracks">
+              <PropertyRef Name="RaterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OldDbModelStoreContainer">
+          <EntitySet Name="Album" EntityType="Self.Album" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Artist" EntityType="Self.Artist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mp3s" EntityType="Self.Mp3s" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Playlists" EntityType="Self.Playlists" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlaylistTags" EntityType="Self.PlaylistTags" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PossibleDuplicate" EntityType="Self.PossibleDuplicate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RCDC" EntityType="Self.RCDC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StaticPlaylists" EntityType="Self.StaticPlaylists" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StaticPlaylistTracks" EntityType="Self.StaticPlaylistTracks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TagCategory" EntityType="Self.TagCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrackTags" EntityType="Self.TrackTags" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UnratedTracks" EntityType="Self.UnratedTracks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Album_Artist" Association="Self.FK_Album_Artist">
+            <End Role="Artist" EntitySet="Artist" />
+            <End Role="Album" EntitySet="Album" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlaylistTags_Playlists" Association="Self.FK_PlaylistTags_Playlists">
+            <End Role="Playlists" EntitySet="Playlists" />
+            <End Role="PlaylistTags" EntitySet="PlaylistTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlaylistTags_Tags" Association="Self.FK_PlaylistTags_Tags">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="PlaylistTags" EntitySet="PlaylistTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PossibleDuplicate_Mp3s" Association="Self.FK_PossibleDuplicate_Mp3s">
+            <End Role="Mp3s" EntitySet="Mp3s" />
+            <End Role="PossibleDuplicate" EntitySet="PossibleDuplicate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StaticPlaylistTracks_StaticPlaylists" Association="Self.FK_StaticPlaylistTracks_StaticPlaylists">
+            <End Role="StaticPlaylists" EntitySet="StaticPlaylists" />
+            <End Role="StaticPlaylistTracks" EntitySet="StaticPlaylistTracks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tags_TagCategory" Association="Self.FK_Tags_TagCategory">
+            <End Role="TagCategory" EntitySet="TagCategory" />
+            <End Role="Tags" EntitySet="Tags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrackTags_Mp3s" Association="Self.FK_TrackTags_Mp3s">
+            <End Role="Mp3s" EntitySet="Mp3s" />
+            <End Role="TrackTags" EntitySet="TrackTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrackTags_Tags" Association="Self.FK_TrackTags_Tags">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="TrackTags" EntitySet="TrackTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UnratedTracks_Mp3s" Association="Self.FK_UnratedTracks_Mp3s">
+            <End Role="Mp3s" EntitySet="Mp3s" />
+            <End Role="UnratedTracks" EntitySet="UnratedTracks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UnratedTracks_Users" Association="Self.FK_UnratedTracks_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UnratedTracks" EntitySet="UnratedTracks" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OldDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Album">
+          <Key>
+            <PropertyRef Name="AlbumID" />
+          </Key>
+          <Property Name="AlbumID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ArtistID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NumberOfTracks" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Artist" Relationship="Self.FK_Album_Artist" FromRole="Album" ToRole="Artist" />
+        </EntityType>
+        <EntityType Name="Artist">
+          <Key>
+            <PropertyRef Name="ArtistID" />
+          </Key>
+          <Property Name="ArtistID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Artist1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Albums" Relationship="Self.FK_Album_Artist" FromRole="Artist" ToRole="Album" />
+        </EntityType>
+        <EntityType Name="Mp3s">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Path" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Artist" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Album" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TrackNumber" Type="Int32" />
+          <Property Name="AlbumTracks" Type="Int32" />
+          <NavigationProperty Name="PossibleDuplicate" Relationship="Self.FK_PossibleDuplicate_Mp3s" FromRole="Mp3s" ToRole="PossibleDuplicate" />
+          <NavigationProperty Name="Tags" Relationship="Self.TrackTags" FromRole="Mp3s" ToRole="Tags" />
+          <NavigationProperty Name="Users" Relationship="Self.UnratedTracks" FromRole="Mp3s" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Playlist">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TagCombiner" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Tags" Relationship="Self.PlaylistTags" FromRole="Playlists" ToRole="Tags" />
+        </EntityType>
+        <EntityType Name="PossibleDuplicate">
+          <Key>
+            <PropertyRef Name="TrackID" />
+          </Key>
+          <Property Name="TrackID" Type="Int32" Nullable="false" />
+          <Property Name="Ignore" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Mp3s" Relationship="Self.FK_PossibleDuplicate_Mp3s" FromRole="PossibleDuplicate" ToRole="Mp3s" />
+        </EntityType>
+        <EntityType Name="RCDC">
+          <Key>
+            <PropertyRef Name="Number" />
+          </Key>
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <Property Name="Artist" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Album" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Listened" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StaticPlaylist">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="StaticPlaylistTracks" Relationship="Self.FK_StaticPlaylistTracks_StaticPlaylists" FromRole="StaticPlaylists" ToRole="StaticPlaylistTracks" />
+        </EntityType>
+        <EntityType Name="StaticPlaylistTrack">
+          <Key>
+            <PropertyRef Name="PlaylistId" />
+            <PropertyRef Name="RelativePath" />
+            <PropertyRef Name="TrackNumber" />
+          </Key>
+          <Property Name="PlaylistId" Type="Int32" Nullable="false" />
+          <Property Name="RelativePath" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TrackNumber" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="StaticPlaylist" Relationship="Self.FK_StaticPlaylistTracks_StaticPlaylists" FromRole="StaticPlaylistTracks" ToRole="StaticPlaylists" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TagCategory">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Display" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Tags" Relationship="Self.FK_Tags_TagCategory" FromRole="TagCategory" ToRole="Tags" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TagCategory" Relationship="Self.FK_Tags_TagCategory" FromRole="Tags" ToRole="TagCategory" />
+          <NavigationProperty Name="Playlists" Relationship="Self.PlaylistTags" FromRole="Tags" ToRole="Playlists" />
+          <NavigationProperty Name="Mp3s" Relationship="Self.TrackTags" FromRole="Tags" ToRole="Mp3s" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Mp3s" Relationship="Self.UnratedTracks" FromRole="Users" ToRole="Mp3s" />
+        </EntityType>
+        <Association Name="FK_Album_Artist">
+          <End Role="Artist" Type="Self.Artist" Multiplicity="1" />
+          <End Role="Album" Type="Self.Album" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artist">
+              <PropertyRef Name="ArtistID" />
+            </Principal>
+            <Dependent Role="Album">
+              <PropertyRef Name="ArtistID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PossibleDuplicate_Mp3s">
+          <End Role="Mp3s" Type="Self.Mp3s" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PossibleDuplicate" Type="Self.PossibleDuplicate" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Mp3s">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PossibleDuplicate">
+              <PropertyRef Name="TrackID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StaticPlaylistTracks_StaticPlaylists">
+          <End Role="StaticPlaylists" Type="Self.StaticPlaylist" Multiplicity="1" />
+          <End Role="StaticPlaylistTracks" Type="Self.StaticPlaylistTrack" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StaticPlaylists">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StaticPlaylistTracks">
+              <PropertyRef Name="PlaylistId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tags_TagCategory">
+          <End Role="TagCategory" Type="Self.TagCategory" Multiplicity="1" />
+          <End Role="Tags" Type="Self.Tag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TagCategory">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Tags">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PlaylistTags">
+          <End Role="Playlists" Type="Self.Playlist" Multiplicity="*" />
+          <End Role="Tags" Type="Self.Tag" Multiplicity="*" />
+        </Association>
+        <Association Name="TrackTags">
+          <End Role="Mp3s" Type="Self.Mp3s" Multiplicity="*" />
+          <End Role="Tags" Type="Self.Tag" Multiplicity="*" />
+        </Association>
+        <Association Name="UnratedTracks">
+          <End Role="Mp3s" Type="Self.Mp3s" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="OldDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Albums" EntityType="Self.Album" />
+          <EntitySet Name="Artists" EntityType="Self.Artist" />
+          <EntitySet Name="Mp3s" EntityType="Self.Mp3s" />
+          <EntitySet Name="Playlists" EntityType="Self.Playlist" />
+          <EntitySet Name="PossibleDuplicates" EntityType="Self.PossibleDuplicate" />
+          <EntitySet Name="RCDCs" EntityType="Self.RCDC" />
+          <EntitySet Name="StaticPlaylists" EntityType="Self.StaticPlaylist" />
+          <EntitySet Name="StaticPlaylistTracks" EntityType="Self.StaticPlaylistTrack" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="TagCategories" EntityType="Self.TagCategory" />
+          <EntitySet Name="Tags" EntityType="Self.Tag" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Album_Artist" Association="Self.FK_Album_Artist">
+            <End Role="Artist" EntitySet="Artists" />
+            <End Role="Album" EntitySet="Albums" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PossibleDuplicate_Mp3s" Association="Self.FK_PossibleDuplicate_Mp3s">
+            <End Role="Mp3s" EntitySet="Mp3s" />
+            <End Role="PossibleDuplicate" EntitySet="PossibleDuplicates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StaticPlaylistTracks_StaticPlaylists" Association="Self.FK_StaticPlaylistTracks_StaticPlaylists">
+            <End Role="StaticPlaylists" EntitySet="StaticPlaylists" />
+            <End Role="StaticPlaylistTracks" EntitySet="StaticPlaylistTracks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tags_TagCategory" Association="Self.FK_Tags_TagCategory">
+            <End Role="TagCategory" EntitySet="TagCategories" />
+            <End Role="Tags" EntitySet="Tags" />
+          </AssociationSet>
+          <AssociationSet Name="PlaylistTags" Association="Self.PlaylistTags">
+            <End Role="Playlists" EntitySet="Playlists" />
+            <End Role="Tags" EntitySet="Tags" />
+          </AssociationSet>
+          <AssociationSet Name="TrackTags" Association="Self.TrackTags">
+            <End Role="Mp3s" EntitySet="Mp3s" />
+            <End Role="Tags" EntitySet="Tags" />
+          </AssociationSet>
+          <AssociationSet Name="UnratedTracks" Association="Self.UnratedTracks">
+            <End Role="Mp3s" EntitySet="Mp3s" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OldDbModelStoreContainer" CdmEntityContainer="OldDbEntities">
+          <EntitySetMapping Name="Albums">
+            <EntityTypeMapping TypeName="OldDbModel.Album">
+              <MappingFragment StoreEntitySet="Album">
+                <ScalarProperty Name="AlbumID" ColumnName="AlbumID" />
+                <ScalarProperty Name="ArtistID" ColumnName="ArtistID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NumberOfTracks" ColumnName="NumberOfTracks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Artists">
+            <EntityTypeMapping TypeName="OldDbModel.Artist">
+              <MappingFragment StoreEntitySet="Artist">
+                <ScalarProperty Name="ArtistID" ColumnName="ArtistID" />
+                <ScalarProperty Name="Artist1" ColumnName="Artist" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mp3s">
+            <EntityTypeMapping TypeName="OldDbModel.Mp3s">
+              <MappingFragment StoreEntitySet="Mp3s">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Artist" ColumnName="Artist" />
+                <ScalarProperty Name="Album" ColumnName="Album" />
+                <ScalarProperty Name="TrackNumber" ColumnName="TrackNumber" />
+                <ScalarProperty Name="AlbumTracks" ColumnName="AlbumTracks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Playlists">
+            <EntityTypeMapping TypeName="OldDbModel.Playlist">
+              <MappingFragment StoreEntitySet="Playlists">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TagCombiner" ColumnName="TagCombiner" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PossibleDuplicates">
+            <EntityTypeMapping TypeName="OldDbModel.PossibleDuplicate">
+              <MappingFragment StoreEntitySet="PossibleDuplicate">
+                <ScalarProperty Name="TrackID" ColumnName="TrackID" />
+                <ScalarProperty Name="Ignore" ColumnName="Ignore" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RCDCs">
+            <EntityTypeMapping TypeName="OldDbModel.RCDC">
+              <MappingFragment StoreEntitySet="RCDC">
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Artist" ColumnName="Artist" />
+                <ScalarProperty Name="Album" ColumnName="Album" />
+                <ScalarProperty Name="Listened" ColumnName="Listened" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StaticPlaylists">
+            <EntityTypeMapping TypeName="OldDbModel.StaticPlaylist">
+              <MappingFragment StoreEntitySet="StaticPlaylists">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StaticPlaylistTracks">
+            <EntityTypeMapping TypeName="OldDbModel.StaticPlaylistTrack">
+              <MappingFragment StoreEntitySet="StaticPlaylistTracks">
+                <ScalarProperty Name="PlaylistId" ColumnName="PlaylistId" />
+                <ScalarProperty Name="RelativePath" ColumnName="RelativePath" />
+                <ScalarProperty Name="TrackNumber" ColumnName="TrackNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="OldDbModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TagCategories">
+            <EntityTypeMapping TypeName="OldDbModel.TagCategory">
+              <MappingFragment StoreEntitySet="TagCategory">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Display" ColumnName="Display" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tags">
+            <EntityTypeMapping TypeName="OldDbModel.Tag">
+              <MappingFragment StoreEntitySet="Tags">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="OldDbModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="PlaylistTags" TypeName="OldDbModel.PlaylistTags" StoreEntitySet="PlaylistTags">
+            <EndProperty Name="Playlists">
+              <ScalarProperty Name="ID" ColumnName="PlaylistID" />
+            </EndProperty>
+            <EndProperty Name="Tags">
+              <ScalarProperty Name="ID" ColumnName="TagID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="TrackTags" TypeName="OldDbModel.TrackTags" StoreEntitySet="TrackTags">
+            <EndProperty Name="Mp3s">
+              <ScalarProperty Name="Id" ColumnName="TrackID" />
+            </EndProperty>
+            <EndProperty Name="Tags">
+              <ScalarProperty Name="ID" ColumnName="TagID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="UnratedTracks" TypeName="OldDbModel.UnratedTracks" StoreEntitySet="UnratedTracks">
+            <EndProperty Name="Mp3s">
+              <ScalarProperty Name="Id" ColumnName="TrackId" />
+            </EndProperty>
+            <EndProperty Name="Users">
+              <ScalarProperty Name="Id" ColumnName="RaterId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

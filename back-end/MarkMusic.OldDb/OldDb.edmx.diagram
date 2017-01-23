@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ba6f54eab5f74b7cad12135d746898f7" Name="Diagram1">
+        <EntityTypeShape EntityType="OldDbModel.Album" Width="1.5" PointX="11" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OldDbModel.Artist" Width="1.5" PointX="8.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OldDbModel.Mp3s" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OldDbModel.Playlist" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OldDbModel.PossibleDuplicate" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="OldDbModel.RCDC" Width="1.5" PointX="5.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OldDbModel.StaticPlaylist" Width="1.5" PointX="5.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OldDbModel.StaticPlaylistTrack" Width="1.5" PointX="8" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OldDbModel.sysdiagram" Width="1.5" PointX="8.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OldDbModel.TagCategory" Width="1.5" PointX="3.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OldDbModel.Tag" Width="1.5" PointX="6" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OldDbModel.User" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
+        <AssociationConnector Association="OldDbModel.FK_Album_Artist" ManuallyRouted="false" />
+        <AssociationConnector Association="OldDbModel.FK_PossibleDuplicate_Mp3s" ManuallyRouted="false" />
+        <AssociationConnector Association="OldDbModel.FK_StaticPlaylistTracks_StaticPlaylists" ManuallyRouted="false" />
+        <AssociationConnector Association="OldDbModel.FK_Tags_TagCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="OldDbModel.PlaylistTags" ManuallyRouted="false" />
+        <AssociationConnector Association="OldDbModel.TrackTags" ManuallyRouted="false" />
+        <AssociationConnector Association="OldDbModel.UnratedTracks" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

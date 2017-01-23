@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkMusic.Db", "MarkMusic.Db\MarkMusic.Db.csproj", "{9E4205AC-C159-41D7-B21A-ADA90E31D149}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkMusic.DbCreator", "MarkMusic.DbCreator\MarkMusic.DbCreator.csproj", "{D2947F5B-CE13-41ED-B9B4-BEFD26750B37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkMusic.OldDb", "MarkMusic.OldDb\MarkMusic.OldDb.csproj", "{736FC7FE-9A09-4045-9BC5-E2CB433A04C5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E4205AC-C159-41D7-B21A-ADA90E31D149}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E4205AC-C159-41D7-B21A-ADA90E31D149}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E4205AC-C159-41D7-B21A-ADA90E31D149}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E4205AC-C159-41D7-B21A-ADA90E31D149}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2947F5B-CE13-41ED-B9B4-BEFD26750B37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2947F5B-CE13-41ED-B9B4-BEFD26750B37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2947F5B-CE13-41ED-B9B4-BEFD26750B37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2947F5B-CE13-41ED-B9B4-BEFD26750B37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{736FC7FE-9A09-4045-9BC5-E2CB433A04C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{736FC7FE-9A09-4045-9BC5-E2CB433A04C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{736FC7FE-9A09-4045-9BC5-E2CB433A04C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{736FC7FE-9A09-4045-9BC5-E2CB433A04C5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
